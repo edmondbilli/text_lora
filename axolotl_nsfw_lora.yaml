@@ -1,7 +1,7 @@
 base_model: ./L3.2-8X4B-MOE-V2-Dark-Champion-Inst-21B-uncen-ablit-D_AU-IQ4_XS.gguf
 model_type: llama
 tokenizer_type: llama
-load_in_4bit: true
+load_in_8bit: true
 
 datasets:
   - path: ./nsfw_combined_dataset.jsonl
@@ -24,7 +24,7 @@ train_on_inputs: false
 add_eos_token: true
 
 output_dir: ./outputs/nsfw-lora
-batch_size: 4
+gradient_accumulation_steps: 4
 micro_batch_size: 1
 num_epochs: 3
 learning_rate: 5e-5
