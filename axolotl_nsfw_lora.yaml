@@ -1,0 +1,39 @@
+base_model: ./L3.2-8X4B-MOE-V2-Dark-Champion-Inst-21B-uncen-ablit-D_AU-IQ4_XS.gguf
+model_type: llama
+tokenizer_type: llama
+load_in_4bit: true
+
+datasets:
+  - path: ./nsfw_combined_dataset.jsonl
+    type: alpaca
+
+val_set_size: 0.01  # optional, skip if overfitting is desired
+
+adapter: lora
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+
+sequence_len: 2048
+train_on_inputs: false
+add_eos_token: true
+
+output_dir: ./outputs/nsfw-lora
+batch_size: 4
+micro_batch_size: 1
+num_epochs: 3
+learning_rate: 5e-5
+cutoff_len: 2048
+
+gradient_checkpointing: true
+lr_scheduler: cosine
+warmup_steps: 10
+optimizer: adamw_torch
+
+save_steps: 100
+logging_steps: 10
